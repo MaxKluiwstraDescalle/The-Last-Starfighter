@@ -1,4 +1,4 @@
-class Cross extends Phaser.Physics.Arcade.Sprite{
+class Hud extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y, texture, frame, direction){
         super(scene, x, y, texture, frame)
 
@@ -9,9 +9,9 @@ class Cross extends Phaser.Physics.Arcade.Sprite{
         this.body.setCollideWorldBounds(true)
 
         this.direction = direction
-        this.crossVelocity = 400
+        this.hudVelocity = 400
 
-        scene.crossFSM = new StateMachine('idle',{
+        scene.hudFSM = new StateMachine('idle',{
             idle: new IdleState(),
             move: new MoveState()
         },[ scene, this])
@@ -21,11 +21,11 @@ class Cross extends Phaser.Physics.Arcade.Sprite{
 
 
 class IdleState extends State{
-    enter(scene,cross){
-        cross.setVelocity(0)
+    enter(scene,hud){
+        hud.setVelocity(0)
     }
 
-    execute(scene, cross){
+    execute(scene, hud){
         const {left, right, up, down} = scene.keys
         if(left.isDown || right.isDown || up.isDown || down.isDown){
             this.stateMachine.transition('move')
@@ -35,7 +35,7 @@ class IdleState extends State{
 }
 
 class MoveState extends State{
-    execute(scene, cross){
+    execute(scene, hud){
         const{left, right, up , down} = scene.keys
         if(!(left.isDown || right.isDown || up.isDown || down.isDown)){
             this.stateMachine.transition('idle')
@@ -44,20 +44,20 @@ class MoveState extends State{
 
         if(up.isDown){
             moveDir.y = -1
-            cross.direction = 'up'
+            hud.direction = 'up'
         }else if(down.isDown){
             moveDir.y = 1
-            cross.direction = 'down'
+            hud.direction = 'down'
         }else if(right.isDown){
             moveDir.x = 1
-            cross.direction = 'right'
+            hud.direction = 'right'
         }else if(left.isDown){
             moveDir.x = -1
-            cross.direction = 'left'
+            hud.direction = 'left'
         }
         //console.log('Hello')
         moveDir.normalize()
-        cross.setVelocity(cross.crossVelocity * moveDir.x, cross.crossVelocity * moveDir.y)
+        hud.setVelocity(hud.hudVelocity * moveDir.x, hud.hudVelocity * moveDir.y)
     }
     
 
