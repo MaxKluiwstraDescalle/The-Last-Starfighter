@@ -40,6 +40,7 @@ class Play extends Phaser.Scene{
     update(){
  
         this.crossFSM.step()
+        //this.hubFSM.step()
 
         //this.physics.world.collide(this.mon, this.orbGroup, this.orbCollision, null, this)
 
