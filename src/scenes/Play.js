@@ -9,9 +9,12 @@ class Play extends Phaser.Scene{
             runChildUpdate: true
         })
 
+        const velMa = 300
+        const velMi = -300
+
 
         this.map=this.add.image(0,0,'map').setOrigin(0)
-        this.hud = this.add.image(0,0, 'hud').setOrigin(0)
+        this.hud = this.add.image(0, 0, 'hud').setOrigin(0)
         this.hud.depth = 1
         this.hud.setScrollFactor(0)
         this.cross = new Cross(this, 200, 150, 'cursor', 0, 'down')
@@ -31,6 +34,13 @@ class Play extends Phaser.Scene{
         this.cameras.main.setBounds(0,0,this.map.width, this.map.height)
         this.cameras.main.startFollow(this.cross, true, 0.5, 0.5)
         this.physics.world.setBounds(0, 0, this.map.width, this.map.height)
+
+
+        
+        this.ship = this.physics.add.sprite(100, 100, 'ship')
+        this.ship.setVelocity(Phaser.Math.Between(velMi, velMa),Phaser.Math.Between(velMi, velMa))
+        this.ship.setCollideWorldBounds(true)
+        this.ship.body.setBounce(1)
 
 
         
