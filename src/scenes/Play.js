@@ -173,9 +173,14 @@ class Play extends Phaser.Scene{
             scale: { start: 1, end: 0 },
             lifespan: 1000,
             blendMode: 'ADD',
-            quantity: 20
+            quantity: 10
         });
-        this.sound.play('explosion')
+
+        //stop the emitter after some time
+        this.time.delayedCall(500, ()=>{
+            this.emitter.stop()
+        })
+        this.sound.play('explode')
 
         //this.emitter.destroy
 
@@ -190,10 +195,7 @@ class Play extends Phaser.Scene{
         
         this.ship.setPosition(posX, posY)
 
-        //stop the emitter after some time
-        this.time.delayedCall(1000, ()=>{
-            this.emitter.stop()
-        })
+        
 
    
         //console.log(this.bullets)

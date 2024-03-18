@@ -21,7 +21,7 @@ class Load extends Phaser.Scene{
         this.load.audio('bgmusic','./assets/music.mp3')
         this.load.audio('hurt','./assets/hurt.wav')
         this.load.audio('spawn','./assets/spawn.wav')
-        this.load.audio('explosion','./assets/explosion.wav')
+        this.load.audio('explode','./assets/explosion.wav')
 
         //load image
         this.load.image('map', './assets/map.png')
