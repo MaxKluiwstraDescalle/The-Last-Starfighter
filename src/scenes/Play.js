@@ -18,7 +18,7 @@ class Play extends Phaser.Scene{
         this.posMin = 100
 
 
-        this.map=this.add.image(0,0,'map').setOrigin(0)
+        this.map= this.add.image(0,0,'map').setOrigin(0)
         this.bg2 = this.add.image(0,0,'map').setOrigin(0)
         this.hud = this.add.image(0, 0, 'hud').setOrigin(0)
         this.hud.depth = 2
@@ -66,6 +66,7 @@ class Play extends Phaser.Scene{
         
         if(score == 15000){
             this.ship.destroy
+            this.boss = this.physics.add.sprite(600,600, 'Boss')
         }
 
         this.crossFSM.step()
