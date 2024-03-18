@@ -52,3 +52,4 @@ let score = 0
 //let highScore = 0
 
 let keySPACE, keyRESET//, keyRIGHT, keyLEFT, keyUP, keyDOWN 
+

@@ -18,9 +18,10 @@ class HighScore extends Phaser.Scene{
 
         
         menuConfig.fontSize = '70px'
-        menuConfig.color= '#ADD8E6'
+        menuConfig.color= '#FF0000'
         this.add.text(game.config.width/2, game.config.height/3 - borderUISize - borderPadding, 'New High Score', menuConfig).setOrigin(0.5)
-        
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+        keyRESET = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
 
 
 
@@ -33,6 +34,11 @@ class HighScore extends Phaser.Scene{
             this.sound.play('gameover')
             this.scene.start('menuScene')
         }
+        if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+            this.sound.play('select')
+            this.scene.start('gameoverScene')
+        }
+        
     }
 
 }

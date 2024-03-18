@@ -61,6 +61,7 @@ class Play extends Phaser.Scene{
         this.ship.setDepth(2)
         this.hud.setDepth(3)
         this.cross.setDepth(3)
+        this.cross.setImmovable(true)
         keyRESET = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         this.anims.create({
@@ -98,6 +99,8 @@ class Play extends Phaser.Scene{
             this.boss.play('rotate')
             this.boss.setDepth(2)
             this.ship.destroy()
+            this.boss.body.setCircle(200)
+
         }
         
         
@@ -112,13 +115,26 @@ class Play extends Phaser.Scene{
             this.map.x = 0;
         }
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
-            
+            this.laser = this.add.image(this.cross.x, this.cross.y+80, 'laser')
+            this.laser.setDepth(2)
+
+            this.tweens.add({
+                targets: this.laser,
+                alpha: 0,
+                duration: 200, // Duration of the fade
+                onComplete: () => {
+                    // Remove the laser image when the tween completes
+                    this.laser.destroy();
+                }
+            });
+
+
             this.sound.play('hurt')
             if(score == 16000){
                 //console.log(this.boss.anims.currentFrame.index)
                 if(this.boss.anims.currentFrame.index === this.killableFrame){
                     //console.log('in loop')
-                    this.scene.start('gameoverScene')
+                    this.scene.start('highscoreScene')
                 }
             }else{
                 if(this.bullets!= 0){

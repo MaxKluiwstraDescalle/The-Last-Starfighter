@@ -5,7 +5,7 @@ class Menu extends Phaser.Scene{
     create(){
         let menuConfig= {
             fontFamily: 'Georgia',
-            fontSize: '144px',
+            fontSize: '100px',
             color: '#FF0000',
             align: 'right',
             padding:{
@@ -21,7 +21,7 @@ class Menu extends Phaser.Scene{
 
         menuConfig.color = '#FFFF00'
         
-        this.add.text(game.config.width/2, game.config.height/1.3, 'Use Arrows Keys to Move and space to shoot, Shoot the Ships!', menuConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/1.3, 'Use Arrows Keys to Move and SPACE to shoot, Shoot the Ships!', menuConfig).setOrigin(0.5)
 
         menuConfig.color = '#FFFF00'
         this.add.text(game.config.width/2, game.config.height/1.2 + borderUISize + borderPadding, 'Press SPACE to Start', menuConfig).setOrigin(0.5)

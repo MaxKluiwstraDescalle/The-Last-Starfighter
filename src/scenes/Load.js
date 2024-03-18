@@ -26,6 +26,7 @@ class Load extends Phaser.Scene{
         this.load.image('hud','./assets/hud.png')
         this.load.spritesheet('boss','./assets/boss.png', {frameWidth: 400, frameHeight: 400})
         this.load.image('explosion','./assets/explosion.png')
+        this.load.image('laser','./assets/laser.png')
         /*this.load.spritesheet('mon','./assets/mon.png', {
             frameWidth: 32,
             frameHeight: 32,
