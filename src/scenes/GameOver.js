@@ -15,7 +15,7 @@ class GameOver extends Phaser.Scene{
             },
             fixedWidth: 0
         }
-        //this.bgMusic.stop()
+        //Create Text for the game over Scene
         this.add.text(game.config.width/2, game.config.height/5 - borderUISize - borderPadding, `Game Over!`, menuConfig).setOrigin(0.5)
         menuConfig.fontSize = '50px'
         menuConfig.color= '#FFFF00'
@@ -29,12 +29,13 @@ class GameOver extends Phaser.Scene{
     }
 
     update(){
+        //make the keyboard inputs fro reseting and going to credits
         if(Phaser.Input.Keyboard.JustDown(keyRESET)){
             this.sound.play('gameover')
             this.scene.start('menuScene')
         }
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
-            console.log('Credits?')
+            //console.log('Credits?')
             this.sound.play('select')
             this.scene.start('creditScene')
         }

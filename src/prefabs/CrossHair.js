@@ -1,5 +1,6 @@
 class Cross extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y, texture, frame, direction, type){
+        //Set up State Machine
         super(scene, x, y, texture, frame)
 
         scene.add.existing(this)
@@ -19,7 +20,7 @@ class Cross extends Phaser.Physics.Arcade.Sprite{
 }
 
 
-
+//Idle state of statemachine
 class IdleState extends State{
     enter(scene,cross){
         cross.setVelocity(0)
@@ -27,13 +28,14 @@ class IdleState extends State{
 
     execute(scene, cross){
         const {left, right, up, down} = scene.keys
+        //Exits whenver any movement is detected
         if(left.isDown || right.isDown || up.isDown || down.isDown){
             this.stateMachine.transition('move')
             return
         }
     }
 }
-
+//Move State of the Statemachine
 class MoveState extends State{
     execute(scene, cross){
         const{left, right, up , down} = scene.keys
@@ -41,7 +43,7 @@ class MoveState extends State{
             this.stateMachine.transition('idle')
         }
         let moveDir = new Phaser.Math.Vector2(0,0)
-
+        //Depending on the arrow key the movement direction changes
         if(up.isDown){
             moveDir.y = -1
             cross.direction = 'up'

@@ -15,7 +15,7 @@ class Menu extends Phaser.Scene{
             fixedWidth: 0
         }
 
-
+        //Make text for menu
         this.add.text(game.config.width/2, game.config.height/4 - borderUISize - borderPadding, 'The Last Starfighter', menuConfig).setOrigin(0.5)
         menuConfig.fontSize = '32px'
 
@@ -26,6 +26,7 @@ class Menu extends Phaser.Scene{
         menuConfig.color = '#FFFF00'
         this.add.text(game.config.width/2, game.config.height/1.2 + borderUISize + borderPadding, 'Press SPACE to Start', menuConfig).setOrigin(0.5)
 
+        //Make key to start
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
 
 
@@ -34,6 +35,7 @@ class Menu extends Phaser.Scene{
     }
 
     update(){
+        //Check if key is down
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
             this.sound.play('select')
             this.scene.start('playScene')

@@ -3,7 +3,7 @@ class Credits extends Phaser.Scene{
         super("creditScene")
     }
     create(){
-        console.log('credits')
+        //console.log('credits')
         let menuConfig= {
             fontFamily: 'Georgia',
             fontSize: '144px',
@@ -16,7 +16,7 @@ class Credits extends Phaser.Scene{
             fixedWidth: 0
         }
 
-        
+        //Text for all the credits
         menuConfig.fontSize = '70px'
         menuConfig.color= '#ADD8E6'
         this.add.text(game.config.width/2, game.config.height/3 - borderUISize - borderPadding, 'Credits', menuConfig).setOrigin(0.5)
@@ -44,7 +44,7 @@ class Credits extends Phaser.Scene{
         menuConfig.color= "#00FF00"
         this.add.text(140, 10,"Made by Max-Emilien Kluiwstra-Descalle", menuConfig).setOrigin(0.5)
 
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+        //make the reset key
         keyRESET = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
     
 
@@ -54,6 +54,7 @@ class Credits extends Phaser.Scene{
     }
 
     update(){
+        //start the menu screen if you the rest key is hit
         if(Phaser.Input.Keyboard.JustDown(keyRESET)){
             this.sound.play('gameover')
             this.scene.start('menuScene')

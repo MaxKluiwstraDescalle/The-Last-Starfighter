@@ -14,12 +14,16 @@ class Load extends Phaser.Scene{
             loadingBar.destroy();
         });
 
+
+        //load audio
         this.load.audio('select','./assets/select.wav')
         this.load.audio('gameover', './assets/GameOver.wav')
         this.load.audio('bgmusic','./assets/music.mp3')
         this.load.audio('hurt','./assets/hurt.wav')
         this.load.audio('spawn','./assets/spawn.wav')
+        this.load.audio('explosion','./assets/explosion.wav')
 
+        //load image
         this.load.image('map', './assets/map.png')
         this.load.image('ship', './assets/ship.png')
         this.load.image('cursor', './assets/crosshair.png')
@@ -27,6 +31,7 @@ class Load extends Phaser.Scene{
         this.load.spritesheet('boss','./assets/boss.png', {frameWidth: 400, frameHeight: 400})
         this.load.image('explosion','./assets/explosion.png')
         this.load.image('laser','./assets/laser.png')
+        
         /*this.load.spritesheet('mon','./assets/mon.png', {
             frameWidth: 32,
             frameHeight: 32,
