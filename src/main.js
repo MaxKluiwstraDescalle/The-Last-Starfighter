@@ -39,7 +39,7 @@ let config = {
             }
         }
     },
-    scene: [ Load, Menu, Play, GameOver ]
+    scene: [ Load, Menu, Play, GameOver, Credits, HighScore ]
 }
 
 let game = new Phaser.Game(config)

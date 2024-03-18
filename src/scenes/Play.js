@@ -5,6 +5,15 @@ class Play extends Phaser.Scene{
 
     create(){
 
+        this.totalTime = 300
+
+        this.timerEvent = this.time.addEvent({
+            delay: 1000,
+            callback: this.onTimerTick,
+            callbackScope: this,
+            loop: true
+        })
+        
         this.orbGroup = this.add.group({
             runChildUpdate: true
         })
@@ -17,16 +26,16 @@ class Play extends Phaser.Scene{
         this.posMax = 1100
         this.posMin = 100
 
-
+        this.bg3 = this.add.image(0,0, 'map').setOrigin(0)
         this.map= this.add.image(0,0,'map').setOrigin(0)
         this.bg2 = this.add.image(0,0,'map').setOrigin(0)
+       
         this.hud = this.add.image(0, 0, 'hud').setOrigin(0)
         this.hud.depth = 2
         this.hud.setScrollFactor(0)
         this.cross = new Cross(this, 200, 150, 'cursor', 0, 'down')
         this.cross.body.setCircle(40)
         //this.hud = new Hud(this, 200, 150, 'hud',0 ,'down')
-        this.bg2.setDepth(1)
         this.keys= this.input.keyboard.createCursorKeys()
 
 
@@ -50,12 +59,27 @@ class Play extends Phaser.Scene{
         this.ship.body.setBounce(1)
         this.ship.body.setCircle(75)
         this.ship.setDepth(2)
-        this.hud.setDepth(2)
-        this.cross.setDepth(2)
+        this.hud.setDepth(3)
+        this.cross.setDepth(3)
         keyRESET = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+        this.anims.create({
+            key: 'rotate',
+            frames: this.anims.generateFrameNumbers('boss',{start: 0, end: 7}),
+            frameRate: 1,
+            repeat: -1
+        })
 
 
+        this.killableFrame = 1
+
+        
+        
+
+        
+        
+
+       
 
         
 
@@ -63,11 +87,20 @@ class Play extends Phaser.Scene{
     }
 
     update(){
+  
+       
+
+
         
         if(score == 15000){
-            this.ship.destroy
-            this.boss = this.physics.add.sprite(600,600, 'Boss')
+            score += 1000
+            this.boss = this.physics.add.sprite(600,600, 'boss')
+            this.boss.play('rotate')
+            this.boss.setDepth(2)
+            this.ship.destroy()
         }
+        
+        
 
         this.crossFSM.step()
         this.bg2.x += 0.5;
@@ -79,16 +112,24 @@ class Play extends Phaser.Scene{
             this.map.x = 0;
         }
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
-            this.sound.play('hurt')
             
-            if(this.bullets!= 0){
-                this.bullets -= 1
-                if(this.physics.collide(this.cross, this.ship)){
-                    this.shotCollision()
-                } 
-            }else if(this.bullets == 0){
-                //console.log(this.bullets)
-                this.scene.start('gameoverScene')
+            this.sound.play('hurt')
+            if(score == 16000){
+                //console.log(this.boss.anims.currentFrame.index)
+                if(this.boss.anims.currentFrame.index === this.killableFrame){
+                    //console.log('in loop')
+                    this.scene.start('gameoverScene')
+                }
+            }else{
+                if(this.bullets!= 0){
+                    this.bullets -= 1
+                    if(this.physics.collide(this.cross, this.ship)){
+                        this.shotCollision(this.ship)
+                    } 
+                }else if(this.bullets == 0){
+                    //console.log(this.bullets)
+                    this.scene.start('gameoverScene')
+                }
             }
             
         }
@@ -105,21 +146,50 @@ class Play extends Phaser.Scene{
 
 
 
-    shotCollision(){
+    shotCollision(ship){
+        //console.log(ship.x, ship.y)
+        //this.emitter.emitParticle(400, 400, 'explosion', 0, true)
+        this.emitter = this.add.particles('explosion').createEmitter({
+            x: ship.x,
+            y: ship.y,
+            speed: { min: -100, max: 100 },
+            angle: { min: 0, max: 360 },
+            scale: { start: 1, end: 0 },
+            lifespan: 1000,
+            blendMode: 'ADD',
+            quantity: 20
+        });
+
+        //this.emitter.destroy
+
+
+        
         //onsole.log(this.bullets)
         score += 1000
         //console.log(score)
         this.ship.setVelocity(Phaser.Math.Between(this.velMi, this.velMa),Phaser.Math.Between(this.velMi,this.velMa))
-        this.ship.setPosition(1100, 1100)
-        this.cross.setPosition(400,400)
+        const posX = Phaser.Math.Between(this.posMin, this.posMax)
+        const posY = Phaser.Math.Between(this.posMin, this.posMax)
+        //console.log(posX, posY)
+        this.ship.setPosition(posX, posY)
+        //this.cross.setPosition(400,400)
+        this.time.delayedCall(1000, ()=>{
+            this.emitter.stop()
+        })
+
    
         //console.log(this.bullets)
-
-
-        
-        
-        
     }
+
+    onTimerTick(){
+        this.totalTime--;
+        //console.log(this.totalTime)
+        if(this.totalTime<= 0){
+            this.scene.start('gameoverScene')
+            this.timerEvent.remove()
+        }
+    }
+
 
 
 

@@ -24,6 +24,8 @@ class Load extends Phaser.Scene{
         this.load.image('ship', './assets/ship.png')
         this.load.image('cursor', './assets/crosshair.png')
         this.load.image('hud','./assets/hud.png')
+        this.load.spritesheet('boss','./assets/boss.png', {frameWidth: 400, frameHeight: 400})
+        this.load.image('explosion','./assets/explosion.png')
         /*this.load.spritesheet('mon','./assets/mon.png', {
             frameWidth: 32,
             frameHeight: 32,
@@ -31,30 +33,6 @@ class Load extends Phaser.Scene{
     }
 
     create(){
-        /*this.anims.create({
-            key: 'walk-down',
-            frameRate: 8,
-            repeat: -1,
-            frames: this.anims.generateFrameNumbers('mon',{start: 0, end: 3})
-        })
-        this.anims.create({
-            key: 'walk-right',
-            frameRate: 8,
-            repeat: -1,
-            frames: this.anims.generateFrameNumbers('mon',{start: 4, end: 7})
-        })
-        this.anims.create({
-            key: 'walk-up',
-            frameRate: 8,
-            repeat: -1,
-            frames: this.anims.generateFrameNumbers('mon',{start: 8, end: 11})
-        })
-        this.anims.create({
-            key: 'walk-left',
-            frameRate: 8,
-            repeat: -1,
-            frames: this.anims.generateFrameNumbers('mon',{start: 12, end: 15})
-        })*/
 
         this.scene.start('menuScene')
     }
